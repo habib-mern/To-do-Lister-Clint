@@ -1,0 +1,6 @@
+.form input{
+    @apply w-full p-2 my-2 rounded-md border border-primary outline-none;
+}
+.btn_v1{
+    @apply bg-primary w-full p-2 my-2 rounded-md text-white font-semibold;
+}

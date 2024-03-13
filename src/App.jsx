@@ -1,9 +1,40 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import '../src/App.css'
+import HomePage from '../src/Pages/HomePage'
+import NewTodoPage from './Pages/NewTodoPage'
+import CreateTodoPage from './Pages/CreateTodoPage'
+import CompleteTodoPage from './Pages/CompleteTodoPage'
+import ProgressTodoPage from './Pages/ProgressTodoPage'
+import CancelledTodoPage from './Pages/CancelledTodoPage'
+import ForgotPassword from './Components/ForgotPassword'
+import LoginPage from './Pages/LoginPage'
+import OtpVerifyPage from './Pages/OtpVerifyPage'
+import ProfilePage from './Pages/ProfilePage'
+import RegistrationPage from './Pages/RegistrationPage'
+import Page404 from './Pages/Page404'
+import NewPasswordPage from './Pages/NewPasswordPage'
 
 function App() {
 
   return (
     <>
-  <h1 className="text-red-500 bg-green-500">hellow</h1>
+  <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<HomePage/>}></Route>
+      <Route path='/create-todo' element={<CreateTodoPage/>}></Route>
+      <Route path='/new-todo' element={<NewTodoPage/>}></Route>
+      <Route path='/complete-todo' element={<CompleteTodoPage/>}></Route>
+      <Route path='/progress-todo' element={<ProgressTodoPage/>}></Route>
+      <Route path='/cancelled-todo' element={<CancelledTodoPage/>}></Route>
+      <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
+      <Route path='/login' element={<LoginPage/>}></Route>
+      <Route path='/new-password' element={<NewPasswordPage/>}></Route>
+      <Route path='/otp-verify' element={<OtpVerifyPage/>}></Route>
+      <Route path='/profile' element={<ProfilePage/>}></Route>
+      <Route path='/registration' element={<RegistrationPage/>}></Route>
+      <Route path='*' element={<Page404/>}></Route>
+    </Routes>
+  </BrowserRouter>
     </>
   )
 }
