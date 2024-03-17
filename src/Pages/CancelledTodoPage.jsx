@@ -1,10 +1,17 @@
-import CancelledTodo from "../Components/CancelledTodo";
+import { Suspense, lazy } from "react";
+import Loader from "../Components/Loader";
+import MainLayout from "../Layout/MainLayout";
+
+const CancelledTodo = lazy (()=> import ('../Components/CancelledTodo'))
 
 const CancelledTodoPage = () => {
     return (
-        <div>
-            <CancelledTodo/>
-        </div>
+        <MainLayout>
+        <Suspense fallback={<Loader></Loader>}>
+        <CancelledTodo/>
+        </Suspense>
+    </MainLayout>
+
     );
 };
 

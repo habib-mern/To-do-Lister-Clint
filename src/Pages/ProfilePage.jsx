@@ -1,10 +1,17 @@
-import Profile from "../Components/Profile";
+import { Suspense, lazy } from 'react';
+import MainLayout from '../Layout/MainLayout';
+import Loader from '../Components/Loader';
+
+const Profile = lazy (()=> import ('../Components/Profile'))
 
 const ProfilePage = () => {
     return (
-        <div>
-            <Profile/>
-        </div>
+        <MainLayout>
+            <Suspense fallback={<Loader></Loader>}>
+            <Profile></Profile>
+            </Suspense>
+        </MainLayout>
+
     );
 };
 

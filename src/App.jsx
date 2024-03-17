@@ -21,17 +21,20 @@ function App() {
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<HomePage/>}></Route>
+
       <Route path='/create-todo' element={<CreateTodoPage/>}></Route>
       <Route path='/new-todo' element={<NewTodoPage/>}></Route>
       <Route path='/complete-todo' element={<CompleteTodoPage/>}></Route>
       <Route path='/progress-todo' element={<ProgressTodoPage/>}></Route>
       <Route path='/cancelled-todo' element={<CancelledTodoPage/>}></Route>
-      <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
-      <Route path='/login' element={<LoginPage/>}></Route>
-      <Route path='/new-password' element={<NewPasswordPage/>}></Route>
-      <Route path='/otp-verify' element={<OtpVerifyPage/>}></Route>
-      <Route path='/profile' element={<ProfilePage/>}></Route>
+
       <Route path='/registration' element={<RegistrationPage/>}></Route>
+      <Route path='/login' element={<LoginPage/>}></Route>
+      <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
+      <Route path='/otp-verify' element={<OtpVerifyPage/>}></Route>
+      <Route path='/new-password' element={<NewPasswordPage/>}></Route>
+      
+      <Route path='/profile' element={<ProfilePage/>}></Route>
       <Route path='*' element={<Page404/>}></Route>
     </Routes>
   </BrowserRouter>

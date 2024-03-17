@@ -1,5 +1,6 @@
 import  { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -72,7 +73,7 @@ const Login = () => {
       <form className='form' onSubmit={handleSubmit}>
         <h1 className="text-center font-bold mb-5 text-3xl text-white">Welcome To  <span className='text-primary'>TaskQuest</span> Please <span className="text-center font-bold mb-5 text-3xl text-third">Log In</span></h1>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email :</label>
           <input className='text-primary'
             type="email"
             id="email"
@@ -82,7 +83,7 @@ const Login = () => {
           <p style={{ color: 'red' }}>{errors.email}</p>
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password :</label>
           <input className='relative text-primary'
             type={showPassword ? 'text' : 'password'}
             id="password"
@@ -90,11 +91,12 @@ const Login = () => {
             onChange={(e) => handleInputChange('password', e.target.value)}
           />
           <span className='' onClick={handleTogglePassword} style={{ cursor: 'pointer' }}>
-            {showPassword ? <AiOutlineEyeInvisible className='absolute left-[67%] top-[57%] text-[20px] text-primary' /> : <AiOutlineEye className='absolute left-[67%] top-[57%] text-[20px] text-primary' />}
+            {showPassword ? <AiOutlineEyeInvisible className='absolute left-[67%] top-[57%] text-[20px] text-primary' /> : <AiOutlineEye className='absolute left-[67%] top-[55%] text-[20px] text-primary' />}
           </span>
           <p style={{ color: 'red' }}>{errors.password}</p>
         </div>
-        <button className='btn_v1' type="submit">Log In</button>
+        <button className='btn_v1'>Log In</button>
+        <p>Don't have an account? Please <Link to={'/registration'} className='font-bold text-third cursor-pointer'>Ragistar</Link> </p>
       </form>
     </div>
   );

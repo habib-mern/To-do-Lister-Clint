@@ -1,10 +1,13 @@
-import OtpVerify from "../Components/OtpVerify";
+import { Suspense, lazy } from 'react';
+import Loader from '../Components/Loader';
+
+const OtpVerify = lazy (()=> import ('../Components/OtpVerify'))
 
 const OtpVerifyPage = () => {
     return (
-        <div>
-            <OtpVerify/>
-        </div>
+        <Suspense fallback={<Loader></Loader>}>
+        <OtpVerify></OtpVerify>
+        </Suspense>
     );
 };
 

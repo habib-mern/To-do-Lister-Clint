@@ -1,10 +1,13 @@
-import NewPassword from "../Components/NewPassword";
+import { Suspense, lazy } from 'react';
+import Loader from '../Components/Loader';
+
+const NewPassword = lazy (()=> import ('../Components/NewPassword'))
 
 const NewPasswordPage = () => {
     return (
-        <div>
-            <NewPassword/>
-        </div>
+        <Suspense fallback={<Loader></Loader>}>
+        <NewPassword></NewPassword>
+        </Suspense>
     );
 };
 
