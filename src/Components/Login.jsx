@@ -1,11 +1,14 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { LoginRequest } from '../API/Api';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({
     email: '',
@@ -62,7 +65,28 @@ const Login = () => {
 
     if (validateForm()) {
       // Process the login logic here
-      console.log('Login successful', email, password);
+      LoginRequest(email, password)
+        .then((result) => {
+          if(result===true){
+            toast.success('Login Sucessfull')
+            window.location.href='/'
+            console.log(result.token)
+          }
+          else{
+            if(result.error==='User not found'){
+              toast.error('User not found')
+            }
+            else if(result.error==="Wrong Password"){
+              toast.error('Wrong password')
+            }
+            else{
+              toast.error('Somthing went wrong')
+            }
+          }
+        })
+        .catch((error) => {
+          console.log("Login failed");
+        });
     } else {
       console.log('Form validation failed. Please check errors.');
     }
@@ -91,12 +115,13 @@ const Login = () => {
             onChange={(e) => handleInputChange('password', e.target.value)}
           />
           <span className='' onClick={handleTogglePassword} style={{ cursor: 'pointer' }}>
-            {showPassword ? <AiOutlineEyeInvisible className='absolute left-[67%] top-[57%] text-[20px] text-primary' /> : <AiOutlineEye className='absolute left-[67%] top-[55%] text-[20px] text-primary' />}
+            {showPassword ? <AiOutlineEyeInvisible className='absolute left-[67%] top-[53%] text-[20px] text-primary' /> : <AiOutlineEye className='absolute left-[67%] top-[53%] text-[20px] text-primary' />}
           </span>
           <p style={{ color: 'red' }}>{errors.password}</p>
         </div>
-        <button className='btn_v1'>Log In</button>
-        <p>Don't have an account? Please <Link to={'/registration'} className='font-bold text-third cursor-pointer'>Ragistar</Link> </p>
+        <button  className='btn_v1'>Log In</button>
+        <Link to={'/forgot-password'} className='block text-right text-primary hover:underline'>Forgotten password?</Link>
+        <p>Don't have an account? Please <Link to={'/registration'} className='font-bold text-third cursor-pointer'>Register</Link>  </p>
       </form>
     </div>
   );
