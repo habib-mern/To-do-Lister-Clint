@@ -1,6 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getAuthToken, setAuthToken, setEmail, setOtp } from "../Helper/SessionHelper";
+import { getAuthToken, logout, setAuthToken, setEmail, setOtp, setUserDetails } from "../Helper/SessionHelper";
+import store from "../Redux/store/store";
+import { setProfile } from "../Redux/slices/profileSlice";
+
+
 
 const baseUrl = 'https://backend-structer.onrender.com/api/v1'
 
@@ -66,6 +70,7 @@ export function LoginRequest(email, password){
             }
             else{
                 setAuthToken(response.data.token)
+                setUserDetails(response.data.data)
                 // toast.success("Login Successful")
                 return true
             }
@@ -164,3 +169,30 @@ export function ResetPasswordRequest(email, otp, password){
 
 //Update password End
 
+
+//Profile update start 
+export function UpdateProfile() {
+    let url = `${baseUrl}/profile-info`;
+    return axios.get(url, token)
+    .then((response)=>{
+        if(response.status===200){
+            console.log(response.data.data)
+            // store.dispatch(setProfile(response.data.data))
+            return true
+        }
+        else{
+            toast.error('Somthing went wrong')
+        }
+    })
+    .catch((error)=>{
+        if(error.response && error.response.status===401){
+
+            toast.error('somthing went wrong')
+        logout()
+        }
+    else{
+        toast.error('Somthing went wrong')
+    }
+    })
+}
+//Profile update end 

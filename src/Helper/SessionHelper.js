@@ -17,12 +17,24 @@ const setOtp = (otp)=>{
 const getOtp = ()=>{
     return localStorage.getItem('otp')
 }
-
+const setUserDetails =(user)=>{
+    localStorage.setItem('userDetails', JSON.stringify(user))
+}
+const getUserDetails = ()=>{
+    return JSON.parse(localStorage.getItem('userDetails'))
+}
+const logout = ()=>{
+    localStorage.clear()
+    window.location.href = "/login"
+}
 export{
     setAuthToken,
     getAuthToken,
     setEmail,
     getEmail,
     setOtp,
-    getOtp
+    getOtp,
+    setUserDetails,
+    getUserDetails,
+    logout
 }

@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false); // State for managing loading state
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState({
@@ -64,9 +65,12 @@ const Login = () => {
     e.preventDefault();
 
     if (validateForm()) {
+      setLoading(true); // Set loading state to true
+
       // Process the login logic here
       LoginRequest(email, password)
         .then((result) => {
+          setLoading(false); // Reset loading state
           if(result===true){
             toast.success('Login Sucessfull')
             window.location.href='/'
@@ -80,11 +84,12 @@ const Login = () => {
               toast.error('Wrong password')
             }
             else{
-              toast.error('Somthing went wrong')
+              toast.error('Something went wrong')
             }
           }
         })
         .catch((error) => {
+          setLoading(false); // Reset loading state
           console.log("Login failed");
         });
     } else {
@@ -119,7 +124,7 @@ const Login = () => {
           </span>
           <p style={{ color: 'red' }}>{errors.password}</p>
         </div>
-        <button  className='btn_v1'>Log In</button>
+        <button className='btn_v1' disabled={loading}>{loading ? 'Loading...' : 'Log In'}</button>
         <Link to={'/forgot-password'} className='block text-right text-primary hover:underline'>Forgotten password?</Link>
         <p>Don't have an account? Please <Link to={'/registration'} className='font-bold text-third cursor-pointer'>Register</Link>  </p>
       </form>
