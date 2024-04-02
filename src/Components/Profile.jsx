@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { getUserDetails } from "../Helper/SessionHelper";
-import { UpdateProfile } from "../API/Api";
+import { useState } from "react";
+import {  getUserDetails } from "../Helper/SessionHelper";
+import { ProfileUpdateApi } from "../API/Api";
 import { toast } from "react-toastify";
 
 const Profile = () => {
@@ -54,8 +54,8 @@ const Profile = () => {
 
             try {
                 // Assuming you have access to the token
-                const token = 'your_token_here';
-                await UpdateProfile({ firstName, lastName, profilePicture }, token);
+                
+                await ProfileUpdateApi(firstName, lastName, profilePicture );
                 // Optionally, you can display a success message or redirect the user
             } catch (error) {
                 // Handle error, display error message, or rollback changes

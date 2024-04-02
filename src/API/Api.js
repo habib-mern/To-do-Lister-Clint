@@ -1,8 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { getAuthToken, logout, setAuthToken, setEmail, setOtp, setUserDetails } from "../Helper/SessionHelper";
-import store from "../Redux/store/store";
-import { setProfile } from "../Redux/slices/profileSlice";
+
 
 
 
@@ -171,28 +170,100 @@ export function ResetPasswordRequest(email, otp, password){
 
 
 //Profile update start 
-export function UpdateProfile() {
-    let url = `${baseUrl}/profile-info`;
-    return axios.get(url, token)
-    .then((response)=>{
-        if(response.status===200){
-            console.log(response.data.data)
-            // store.dispatch(setProfile(response.data.data))
-            return true
-        }
-        else{
-            toast.error('Somthing went wrong')
-        }
-    })
-    .catch((error)=>{
-        if(error.response && error.response.status===401){
+// export function UpdateProfile() {
+//     let url = `${baseUrl}/profile-info`;
+//     return axios.get(url, token)
+//     .then((response)=>{
+//         if(response.status===200){
+//             console.log(response.data.data)
+//             // store.dispatch(setProfile(response.data.data))
+//             return true
+//         }
+//         else{
+//             toast.error('Somthing went wrong')
+//         }
+//     })
+//     .catch((error)=>{
+//         if(error.response && error.response.status===401){
 
-            toast.error('somthing went wrong')
-        logout()
-        }
-    else{
-        toast.error('Somthing went wrong')
-    }
-    })
-}
+//             toast.error('somthing went wrong')
+//         logout()
+//         }
+//     else{
+//         toast.error('Somthing went wrong')
+//     }
+//     })
+// }
 //Profile update end 
+
+//Update profile api Start
+export function ProfileUpdateApi( firstName, lastName, profilePicture) {
+    
+    let url = `${baseUrl}/user-profile-update`;
+    
+    let postBody = {
+        firstName: firstName,
+        lastName: lastName,
+        profilePicture: profilePicture
+    };
+    let userDetails = {
+        firstName: firstName,
+        lastName: lastName,
+        profilePicture: profilePicture
+    };
+
+    return axios.post(url, postBody, token)
+        .then((response) => {
+            if (response.status === 200) {
+                setUserDetails(userDetails);
+                return true;
+            } else {
+                toast.error('Something went wrong');
+                return false;
+            }
+        })
+        .catch((error) => {
+            if (error.response && error.response.status === 401) {
+                toast.error('Unauthorized');
+                logout();
+            } else {
+                toast.error('Something went wrong');
+            }
+            return false;
+        });
+}
+
+//Update profile api End
+
+//Create todo call api Start
+
+export function CreateTodoApi(title, description) {
+    let url = `${baseUrl}/create-todo`;
+
+    let postBody = {
+        title: title,
+        description: description,
+        status: 'New'
+    }
+
+    return axios.post(url, postBody)
+        .then((response) => {
+            if (response.status === 200) {
+                toast.success('Todo Created successfully');
+                return true;
+            } else {
+                return false;
+            }
+        })
+        .catch((error) => {
+            if (error.response && error.response.status === 401) {
+                toast.error('Unauthorized');
+                 // Call the logout function
+            } else {
+                toast.error('Something  wrong');
+            }
+            return false;
+        });
+}
+
+//Create todo call api End
